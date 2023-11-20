@@ -28,7 +28,7 @@ public class HTTPReqeustService {
 
 
     public void sendOkayHTTP( OkHttpClient client, String url ,HTTPResponseListener hTTPResponseListener) throws Exception {
-        Log.i("out", "sendOkayHTTP");
+        Log.i("myles", "sendOkayHTTP");
         Request request = new Request.Builder()
                 .url(url)
                 .build();
@@ -36,13 +36,13 @@ public class HTTPReqeustService {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Log.e("out", "IOException", e);
+                Log.e("myles", "IOException", e);
                 e.printStackTrace();
             }
 
             @Override
             public void onResponse(Call call, Response response) {
-                Log.i("out", "on response");
+                Log.i("myles", "on response");
                 try (ResponseBody responseBody = response.body()) {
                     if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
 
@@ -50,17 +50,17 @@ public class HTTPReqeustService {
                     Headers responseHeaders = response.headers();
                     for (int i = 0, size = responseHeaders.size(); i < size; i++) {
                         System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
-                        Log.i("response", responseHeaders.name(i) + ": " + responseHeaders.value(i));
+                        Log.i("myles", responseHeaders.name(i) + ": " + responseHeaders.value(i));
 
                     }
 
                     // Get response body
 //                    Toast.makeText(context, responseHeaders.toString(), Toast.LENGTH_SHORT).show();
-                    Log.i("response", responseBody.string());
+                    Log.i("myles", responseBody.string());
 //                    System.out.println(responseBody.string());
                 }
                 catch (IOException e) {
-                    Log.e("out", "IOException in onResponse()", e);
+                    Log.e("myles", "IOException in onResponse()", e);
                     hTTPResponseListener.onError(e.getMessage());
                 }
             }
